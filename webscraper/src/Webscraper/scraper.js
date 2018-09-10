@@ -7,7 +7,8 @@ class Scraper extends Component {
     constructor() {
         super();
         this.state = ({
-            url: ' '
+            url: ' ',
+            html:'HTML scraped'
         });
     }
 
@@ -36,7 +37,7 @@ class Scraper extends Component {
                     </div>
                 </div>
                 <div>
-
+                    <textarea>{this.state.html}</textarea>
                 </div>
             </div>
         );
@@ -57,6 +58,8 @@ class Scraper extends Component {
         axios.get('http://localhost:8081/scrape', {
             params: {url: this.state.url}
         }).then(function(response){
+            this.state.html = response.data;
+            //falta pasar lo de response a un modal
             console.log(response.data);
         })
 
