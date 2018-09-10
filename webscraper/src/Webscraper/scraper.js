@@ -1,34 +1,35 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import './scraper.css';
+import axios from 'axios';
 
 class Scraper extends Component {
     constructor() {
         super();
         this.state = ({
-            url: 'dsf '
+            url: ' '
         });
     }
 
     render() {
         const search = (
-            <div class="container">
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-lg">URL</span>
+            <div className="container">
+                <div className="input-group input-group-lg">
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="inputGroup-sizing-lg">URL</span>
                     </div>
                     <input  type="text" 
-                            class="form-control" 
+                            className="form-control" 
                             aria-label="Sizing example input" 
-                            aria-describedby="inputGroup-sizing-lg" 
+                            aria-describedby="inputGroup-sizing-lg"
                             value={this.state.url} 
                             onChange={this.setUrl.bind(this)}
                             />
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" 
+                    <div className="input-group-append">
+                        <button className="btn btn-outline-secondary" 
                                 type="button" 
                                 id="button-addon2" 
-                                onClick={this.click.bind(this)}
+                                onClick={this.sendUrl.bind(this)}
                             >
                                 Scrap
                         </button>
@@ -52,7 +53,13 @@ class Scraper extends Component {
         });
     }
 
-    click(){
+    sendUrl(){
+        axios.get('http://localhost:8081/scrape', {
+            params: {url: this.state.url}
+        }).then(function(response){
+            console.log(response.data);
+        })
+
         alert(this.state.url);
     }
 }
